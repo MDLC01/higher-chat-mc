@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "higher-chat",
+  "version": "${version}",
+  "name": "Higher Chat",
+  "description": "Moves the chat above the armor bar.",
+  "contact": {
+    "homepage": "https://modrinth.com/mod/higher-chat",
+    "issues": "https://github.com/MDLC01/higher-chat-mc/issues",
+    "sources": "https://github.com/MDLC01/higher-chat-mc"
+  },
+  "authors": [
+    "MDLC01"
+  ],
+  "license": "Unlicense",
+  "icon": "assets/higher-chat/icon.png",
+  "environment": "client",
+  "mixins": [
+    "higher-chat.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "minecraft": "1.20.1"
+  }
+}
