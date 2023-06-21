@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Gui.class)
 public abstract class GuiMixin {
-    @Shadow private int screenHeight;
     @Shadow @Final private ChatComponent chat;
+    @Shadow private int screenHeight;
 
     protected GuiMixin() {
     }

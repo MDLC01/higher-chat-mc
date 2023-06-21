@@ -1,5 +1,6 @@
 package com.mdlc.higherchat;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ChatComponent;
 
 
@@ -58,11 +59,14 @@ public final class SharedStorage {
      * Computes the optimal margin between the bottom of the screen and the chat.
      */
     public static int getOptimalChatMargin() {
-        if (maxBarHeight - 1 < chatHeight) {
+        // Leave space for the `chat.queue` message
+        boolean hasQueue = Minecraft.getInstance().getChatListener().queueSize() > 0;
+        int optimalBottomPos = maxBarHeight - (hasQueue ? 10 : 1);
+        if (optimalBottomPos < chatHeight) {
             // If we cannot fit the chat between the top of the screen and the bars,
-            // we put it back to its vanilla position.
+            // we move it back to its vanilla position.
             return 0;
         }
-        return screenHeight - maxBarHeight + 1;
+        return screenHeight - optimalBottomPos;
     }
 }
