@@ -1,5 +1,8 @@
 package com.mdlc.higherchat;
 
+import net.minecraft.client.gui.components.ChatComponent;
+
+
 /**
  * Contains data that is shared across multiple mixins.
  */
@@ -15,6 +18,11 @@ public final class SharedStorage {
     private static int chatWidth;
 
     /**
+     * Updated each frame to contain the chat height.
+     */
+    private static int chatHeight;
+
+    /**
      * Each frame, this variable is modified dynamically to contain the height of the highest bar that collides with the
      * chat.
      */
@@ -25,9 +33,10 @@ public final class SharedStorage {
      * <p>
      * This function is called at the beginning of every frame.
      */
-    public static void resetData(int chatWidth, int screenHeight) {
+    public static void resetData(ChatComponent chat, int screenHeight) {
         SharedStorage.screenHeight = screenHeight;
-        SharedStorage.chatWidth = chatWidth;
+        chatWidth = chat.getWidth();
+        chatHeight = chat.getHeight();
         maxBarHeight = screenHeight;
     }
 
@@ -49,6 +58,11 @@ public final class SharedStorage {
      * Computes the optimal margin between the bottom of the screen and the chat.
      */
     public static int getOptimalChatMargin() {
+        if (maxBarHeight - 1 < chatHeight) {
+            // If we cannot fit the chat between the top of the screen and the bars,
+            // we put it back to its vanilla position.
+            return 0;
+        }
         return screenHeight - maxBarHeight + 1;
     }
 }

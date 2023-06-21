@@ -27,7 +27,7 @@ public abstract class GuiMixin {
      */
     @Inject(method = "render", at = @At("HEAD"))
     private void onRender(GuiGraphics graphics, float partialTick, CallbackInfo ci) {
-        SharedStorage.resetData(this.chat.getWidth(), this.screenHeight);
+        SharedStorage.resetData(this.chat, this.screenHeight);
     }
 
     /**
