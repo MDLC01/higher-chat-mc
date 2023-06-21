@@ -11,6 +11,9 @@ public final class SharedStorage {
     private SharedStorage() {
     }
 
+    /**
+     * Updated each frame to contain the height of the screen.
+     */
     private static int screenHeight;
 
     /**
