@@ -1,4 +1,4 @@
-<img src="src/main/resources/assets/higher-chat/icon.png" alt="Better Selection icon" width="128" align="right">
+<img src="src/main/resources/assets/higher-chat/icon.png" alt="Higher Chat icon" width="128" align="right">
 
 # Higher Chat
 
