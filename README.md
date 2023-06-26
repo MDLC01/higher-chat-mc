@@ -4,7 +4,7 @@
 
 ![Downloads](https://img.shields.io/modrinth/dt/higher-chat)
 ![Game versions](https://img.shields.io/modrinth/game-versions/higher-chat)
-![GitHub tag](https://img.shields.io/github/tag/MDLC01/higher-chat-mc)
+![GitHub release](https://img.shields.io/github/release/MDLC01/higher-chat-mc)
 ![License](https://img.shields.io/github/license/MDLC01/higher-chat-mc)
 
 This is a Fabric mod for Minecraft that moves the chat above the armor bar.
