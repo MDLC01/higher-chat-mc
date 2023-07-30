@@ -1,7 +1,9 @@
 package com.mdlc.higherchat;
 
+import dev.cheos.libhud.LibhudGui;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.ChatComponent;
+import net.minecraft.client.gui.Gui;
 
 
 /**
@@ -12,23 +14,10 @@ public final class SharedStorage {
     }
 
     /**
-     * Updated each frame to contain the height of the screen.
-     */
-    private static int screenHeight;
-
-    /**
-     * Updated each frame to contain the chat width.
-     */
-    private static int chatWidth;
-
-    /**
-     * Updated each frame to contain the chat height.
-     */
-    private static int chatHeight;
-
-    /**
      * Each frame, this variable is modified dynamically to contain the height of the highest bar that collides with the
      * chat.
+     * <p>
+     * Note that this value is measured from the top of the screen.
      */
     private static int maxBarHeight;
 
@@ -37,11 +26,24 @@ public final class SharedStorage {
      * <p>
      * This function is called at the beginning of every frame.
      */
-    public static void resetData(ChatComponent chat, int screenHeight) {
-        SharedStorage.screenHeight = screenHeight;
-        chatWidth = chat.getWidth();
-        chatHeight = chat.getHeight();
-        maxBarHeight = screenHeight;
+    public static void resetData(Gui gui) {
+        maxBarHeight = gui.screenHeight;
+    }
+
+    /**
+     * Adapts the height of the chat knowing there is an icon at {@code (x, y)}.
+     *
+     * @param gui
+     *         the current gui
+     * @param x
+     *         the abscissa of the leftmost pixel of the icon
+     * @param y
+     *         the ordinate of the high-most pixel of the icon
+     */
+    public static void declareIconAt(Gui gui, int x, int y) {
+        if (x < gui.getChat().getWidth() && y < maxBarHeight) {
+            maxBarHeight = y;
+        }
     }
 
     /**
@@ -53,23 +55,37 @@ public final class SharedStorage {
      *         the ordinate of the high-most pixel of the icon
      */
     public static void declareIconAt(int x, int y) {
-        if (x < chatWidth && y < maxBarHeight) {
-            maxBarHeight = y;
+        declareIconAt(Minecraft.getInstance().gui, x, y);
+    }
+
+    /**
+     * Returns the position of the top of the bars that share a common abscissa with the chat.
+     * <p>
+     * The position is measured as an offset from the top of the screen.
+     */
+    private static int getBarsTop(Gui gui) {
+        FabricLoader fabric = FabricLoader.getInstance();
+        if (fabric.isModLoaded("libhud") && gui instanceof LibhudGui libhudGui) {
+            resetData(gui);
+            declareIconAt(gui, libhudGui.screenWidth / 2 - 91, libhudGui.screenHeight - libhudGui.leftOffset + 10);
+            declareIconAt(gui, libhudGui.screenWidth / 2 + 10, libhudGui.screenHeight - libhudGui.rightOffset + 10);
         }
+        return maxBarHeight;
     }
 
     /**
      * Computes the optimal margin between the bottom of the screen and the chat.
      */
     public static int getOptimalChatMargin() {
+        Gui gui = Minecraft.getInstance().gui;
         // Leave space for the `chat.queue` message
         boolean hasQueue = Minecraft.getInstance().getChatListener().queueSize() > 0;
-        int optimalBottomPos = maxBarHeight - (hasQueue ? 10 : 1);
-        if (optimalBottomPos < chatHeight) {
+        int optimalBottomPos = getBarsTop(gui) - (hasQueue ? 10 : 1);
+        if (optimalBottomPos < gui.getChat().getHeight()) {
             // If we cannot fit the chat between the top of the screen and the bars,
             // we move it back to its vanilla position.
             return 0;
         }
-        return screenHeight - optimalBottomPos;
+        return gui.screenHeight - optimalBottomPos;
     }
 }

@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "com.mdlc.higherchat.mixin",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "com.mdlc.higherchat.mixin.HigherChatMixinPlugin",
   "mixins": [
   ],
   "client": [
