@@ -29,7 +29,7 @@ dependencies {
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    modImplementation 'maven.modrinth:libhud:1.0.0-beta4'
+    modImplementation 'maven.modrinth:libhud:1.0.0-beta7'
 }
 
 processResources {
