@@ -27,18 +27,18 @@ public abstract class GuiMixin {
     /**
      * Tests if an icon is higher than what we had seen until now.
      */
-    @Redirect(method = "renderPlayerHealth", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIII)V"))
-    private void onRenderBarIcon(GuiGraphics graphics, ResourceLocation iconsLocation, int x, int y, int xOffset, int yOffset, int width, int height) {
+    @Redirect(method = "renderPlayerHealth", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"))
+    private void onRenderBarIcon(GuiGraphics graphics, ResourceLocation iconsLocation, int x, int y, int width, int height) {
         SharedStorage.declareIconAt(x, y);
-        graphics.blit(iconsLocation, x, y, xOffset, yOffset, width, height);
+        graphics.blitSprite(iconsLocation, x, y, width, height);
     }
 
     /**
      * Tests if a heart is higher than what we had seen until now.
      */
-    @Redirect(method = "renderHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIII)V"))
-    private void onRenderHeart(GuiGraphics graphics, ResourceLocation iconsLocation, int x, int y, int xOffset, int yOffset, int width, int height) {
+    @Redirect(method = "renderHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"))
+    private void onRenderHeart(GuiGraphics graphics, ResourceLocation iconsLocation, int x, int y, int width, int height) {
         SharedStorage.declareIconAt(x, y);
-        graphics.blit(iconsLocation, x, y, xOffset, yOffset, width, height);
+        graphics.blitSprite(iconsLocation, x, y, width, height);
     }
 }
