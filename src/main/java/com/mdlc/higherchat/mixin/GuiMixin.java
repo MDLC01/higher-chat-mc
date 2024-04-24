@@ -41,4 +41,31 @@ public abstract class GuiMixin {
         SharedStorage.declareIconAt(x, y);
         graphics.blitSprite(iconsLocation, x, y, width, height);
     }
+
+    /**
+     * Tests if an armor piece is higher than what we had seen until now.
+     */
+    @Redirect(method = "renderArmor", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"))
+    private static void onRenderArmorPiece(GuiGraphics graphics, ResourceLocation iconsLocation, int x, int y, int width, int height) {
+        SharedStorage.declareIconAt(x, y);
+        graphics.blitSprite(iconsLocation, x, y, width, height);
+    }
+
+    /**
+     * Tests if a food icon is higher than what we had seen until now.
+     */
+    @Redirect(method = "renderFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"))
+    private void onRenderFoodIcon(GuiGraphics graphics, ResourceLocation iconsLocation, int x, int y, int width, int height) {
+        SharedStorage.declareIconAt(x, y);
+        graphics.blitSprite(iconsLocation, x, y, width, height);
+    }
+
+    /**
+     * Tests if a vehicle heart is higher than what we had seen until now.
+     */
+    @Redirect(method = "renderVehicleHealth", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"))
+    private void onRenderVehicleHeart(GuiGraphics graphics, ResourceLocation iconsLocation, int x, int y, int width, int height) {
+        SharedStorage.declareIconAt(x, y);
+        graphics.blitSprite(iconsLocation, x, y, width, height);
+    }
 }

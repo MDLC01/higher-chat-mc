@@ -1,4 +1,3 @@
 accessWidener v1 named
 
-accessible field net/minecraft/client/gui/Gui screenWidth I
-accessible field net/minecraft/client/gui/Gui screenHeight I
+accessible field net/minecraft/client/gui/Gui minecraft Lnet/minecraft/client/Minecraft;

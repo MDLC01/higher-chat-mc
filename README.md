@@ -21,4 +21,4 @@ Most similar mods only move the chat by a fixed amount, whereas this one decides
 
 ### Is it compatible with mods that add other bars?
 
-Likely not, although mods that are compatible with [libhud](https://modrinth.com/mod/libhud) have a higher chance of being compatible with Higher Chat. So if you encounter incompatibilities, try adding libhud to your mod pack.
+Probably not. Only vanilla bars are taken into account when computing how high the chat should be displayed.
