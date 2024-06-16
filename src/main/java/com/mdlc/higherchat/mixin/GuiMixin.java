@@ -1,6 +1,7 @@
 package com.mdlc.higherchat.mixin;
 
 import com.mdlc.higherchat.SharedStorage;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +21,7 @@ public abstract class GuiMixin {
      * Runs before everything. Resets the values.
      */
     @Inject(method = "render", at = @At("HEAD"))
-    private void onRender(GuiGraphics graphics, float partialTick, CallbackInfo ci) {
+    private void onRender(GuiGraphics graphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         SharedStorage.resetData((Gui) (Object) this);
     }
 
