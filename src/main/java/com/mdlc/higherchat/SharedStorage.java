@@ -12,6 +12,14 @@ public final class SharedStorage {
     }
 
     /**
+     * The height of the no man's land (essentially, the max bar height) on the previous frame.
+     * <p>
+     * This is used to <a href="https://github.com/MDLC01/higher-chat-mc/issues/2">prevent the chat from wobbling with
+     * the hunger bar</a>.
+     */
+    private static int lastNoMansLandHeight = 0;
+
+    /**
      * Each frame, this variable is modified dynamically to contain the height of the highest bar that collides with the
      * chat.
      * <p>
@@ -70,7 +78,14 @@ public final class SharedStorage {
         Gui gui = Minecraft.getInstance().gui;
         // Leave space for the `chat.queue` message
         boolean hasQueue = Minecraft.getInstance().getChatListener().queueSize() > 0;
-        int optimalBottomPos = maxBarHeight - (hasQueue ? 10 : 1);
+        // If the bars used to be just a little lower, don't move the chat up.
+        // This prevents https://github.com/MDLC01/higher-chat-mc/issues/2.
+        int noMansLandHeight = maxBarHeight;
+        if (lastNoMansLandHeight > maxBarHeight && lastNoMansLandHeight - maxBarHeight <= 2) {
+            noMansLandHeight = lastNoMansLandHeight;
+        }
+        lastNoMansLandHeight = noMansLandHeight;
+        int optimalBottomPos = noMansLandHeight - (hasQueue ? 10 : 1);
         if (optimalBottomPos < gui.getChat().getHeight()) {
             // If we cannot fit the chat between the top of the screen and the bars,
             // we move it back to its vanilla position.
