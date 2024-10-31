@@ -21,6 +21,6 @@
   "accessWidener": "higher-chat.accesswidener",
   "depends": {
     "fabricloader": ">=0.15.10",
-    "minecraft": ["1.21", "1.21.1"]
+    "minecraft": "1.21.3"
   }
 }
