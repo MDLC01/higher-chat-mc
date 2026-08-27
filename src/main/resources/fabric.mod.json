@@ -1,26 +1,22 @@
 {
-  "schemaVersion": 1,
-  "id": "higher-chat",
-  "version": "${version}",
-  "name": "Higher Chat",
-  "description": "Moves the chat above the armor bar.",
-  "contact": {
-    "homepage": "https://modrinth.com/mod/higher-chat",
-    "issues": "https://github.com/MDLC01/higher-chat-mc/issues",
-    "sources": "https://github.com/MDLC01/higher-chat-mc"
-  },
-  "authors": [
-    "MDLC01"
-  ],
-  "license": "Unlicense",
-  "icon": "assets/higher-chat/icon.png",
-  "environment": "client",
-  "mixins": [
-    "higher-chat.mixins.json"
-  ],
-  "accessWidener": "higher-chat.accesswidener",
-  "depends": {
-    "fabricloader": ">=0.16.14",
-    "minecraft": "1.21.11"
-  }
+    "schemaVersion": 1,
+    "id": "higher-chat",
+    "version": "${version}",
+    "name": "Higher Chat",
+    "description": "Moves the chat above the armor bar.",
+    "contact": {
+        "homepage": "https://modrinth.com/mod/higher-chat",
+        "issues": "https://github.com/MDLC01/higher-chat-mc/issues",
+        "sources": "https://github.com/MDLC01/higher-chat-mc"
+    },
+    "authors": ["MDLC01"],
+    "license": "Unlicense",
+    "icon": "assets/higher-chat/icon.png",
+    "environment": "client",
+    "mixins": ["higher-chat.mixins.json"],
+    "accessWidener": "higher-chat.accesswidener",
+    "depends": {
+        "fabricloader": ">=0.16.14",
+        "minecraft": "~26.1"
+    }
 }

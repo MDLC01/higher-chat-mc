@@ -30,8 +30,8 @@ public final class SharedStorage {
     /**
      * Returns the height of the window for the specified GUI.
      */
-    private static int getHeight(Gui gui) {
-        return gui.minecraft.getWindow().getGuiScaledHeight();
+    private static int getHeight(Minecraft minecraft) {
+        return minecraft.getWindow().getGuiScaledHeight();
     }
 
     /**
@@ -39,8 +39,8 @@ public final class SharedStorage {
      * <p>
      * This function is called at the beginning of every frame.
      */
-    public static void resetData(Gui gui) {
-        maxBarHeight = getHeight(gui);
+    public static void resetData(Minecraft minecraft) {
+        maxBarHeight = getHeight(minecraft);
     }
 
     /**
@@ -91,6 +91,6 @@ public final class SharedStorage {
             // we move it back to its vanilla position.
             return 0;
         }
-        return getHeight(gui) - optimalBottomPos;
+        return getHeight(Minecraft.getInstance()) - optimalBottomPos;
     }
 }
