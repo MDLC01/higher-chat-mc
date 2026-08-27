@@ -1,10 +1,14 @@
 plugins {
-    id 'fabric-loom' version '1.10-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
     id 'maven-publish'
 }
 
 version = project.mod_version
 group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
 
 loom {
     accessWidenerPath = file("src/main/resources/higher-chat.accesswidener")
@@ -14,8 +18,8 @@ repositories {
     exclusiveContent {
         forRepository {
             maven {
-                name "Modrinth"
-                url 'https://api.modrinth.com/maven'
+                name = "Modrinth"
+                url = 'https://api.modrinth.com/maven'
             }
         }
         filter {
@@ -26,24 +30,23 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 }
 
 processResources {
     inputs.property "version", project.version
     inputs.property "minecraft_version", project.minecraft_version
     inputs.property "loader_version", project.loader_version
-    filteringCharset "UTF-8"
+    filteringCharset = "UTF-8"
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version,
-                "minecraft_version": project.minecraft_version,
-                "loader_version": project.loader_version
+        expand "version": inputs.properties.version,
+                "minecraft_version": inputs.properties.minecraft_version,
+                "loader_version": inputs.properties.loader_version
     }
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = 25
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
@@ -56,7 +59,6 @@ java {
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
-    archivesBaseName = project.archives_base_name
     // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
     // if it is present.
     // If you remove this line, sources will not be generated.
@@ -64,9 +66,11 @@ java {
 }
 
 jar {
-    from("UNLICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
-    }
+	inputs.property "archivesName", project.base.archivesName
+
+	from("UNLICENSE") {
+		rename { "${it}_${inputs.properties.archivesName}"}
+	}
 }
 
 // configure the maven publication
