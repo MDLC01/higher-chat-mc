@@ -1,15 +1,11 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "com.mdlc.higherchat.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-  ],
-  "client": [
-    "ChatComponentMixin",
-    "GuiMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.mdlc.higherchat.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [],
+    "client": ["ChatComponentMixin", "HudMixin"],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }

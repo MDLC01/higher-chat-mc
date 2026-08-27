@@ -12,7 +12,7 @@ public abstract class ChatComponentMixin {
     /**
      * Makes the chat render above bars.
      */
-    @ModifyConstant(method = "render(Lnet/minecraft/client/gui/components/ChatComponent$ChatGraphicsAccess;IIZ)V", constant = @Constant(intValue = 40))
+    @ModifyConstant(method = "extractRenderState(Lnet/minecraft/client/gui/components/ChatComponent$ChatGraphicsAccess;IILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;)V", constant = @Constant(intValue = 40))
     private int adjustBottomMarginInRender(int bottomMargin) {
         return Math.max(bottomMargin, SharedStorage.getOptimalChatMargin());
     }

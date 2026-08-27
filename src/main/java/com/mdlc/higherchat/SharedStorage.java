@@ -30,8 +30,8 @@ public final class SharedStorage {
     /**
      * Returns the height of the window for the specified GUI.
      */
-    private static int getHeight(Gui gui) {
-        return gui.minecraft.getWindow().getGuiScaledHeight();
+    private static int getHeight(Minecraft minecraft) {
+        return minecraft.getWindow().getGuiScaledHeight();
     }
 
     /**
@@ -39,8 +39,8 @@ public final class SharedStorage {
      * <p>
      * This function is called at the beginning of every frame.
      */
-    public static void resetData(Gui gui) {
-        maxBarHeight = getHeight(gui);
+    public static void resetData(Minecraft minecraft) {
+        maxBarHeight = getHeight(minecraft);
     }
 
     /**
@@ -54,7 +54,7 @@ public final class SharedStorage {
      *         the ordinate of the high-most pixel of the icon
      */
     public static void declareIconAt(Gui gui, int x, int y) {
-        if (x < gui.getChat().getWidth() && y < maxBarHeight) {
+        if (x < gui.hud.getChat().getWidth() && y < maxBarHeight) {
             maxBarHeight = y;
         }
     }
@@ -77,7 +77,7 @@ public final class SharedStorage {
     public static int getOptimalChatMargin() {
         Gui gui = Minecraft.getInstance().gui;
         // Leave space for the `chat.queue` message
-        boolean hasQueue = Minecraft.getInstance().getChatListener().queueSize() > 0;
+        boolean hasQueue = gui.chatListener().queueSize() > 0;
         // If the bars used to be just a little lower, don't move the chat up.
         // This prevents https://github.com/MDLC01/higher-chat-mc/issues/2.
         int noMansLandHeight = maxBarHeight;
@@ -86,11 +86,11 @@ public final class SharedStorage {
         }
         lastNoMansLandHeight = noMansLandHeight;
         int optimalBottomPos = noMansLandHeight - (hasQueue ? 10 : 1);
-        if (optimalBottomPos < gui.getChat().getHeight()) {
+        if (optimalBottomPos < gui.hud.getChat().getHeight()) {
             // If we cannot fit the chat between the top of the screen and the bars,
             // we move it back to its vanilla position.
             return 0;
         }
-        return getHeight(gui) - optimalBottomPos;
+        return getHeight(Minecraft.getInstance()) - optimalBottomPos;
     }
 }
