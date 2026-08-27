@@ -17,6 +17,6 @@
     "accessWidener": "higher-chat.accesswidener",
     "depends": {
         "fabricloader": ">=0.16.14",
-        "minecraft": "~26.1"
+        "minecraft": "~26.2"
     }
 }
